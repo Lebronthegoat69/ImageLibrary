@@ -1,0 +1,46 @@
+﻿@page
+@model ImageLibrary.Pages.UploadModel
+
+@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<h1>Upload an Image</h1>
+
+<p>Select an image and give it a title.</p>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @Model.SuccessMessage
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Image Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Choose Image</label>
+        <input asp-for="ImageFile"
+               type="file"
+               accept=".jpg,.png"
+               class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <p class="text-muted">Only JPG and PNG files smaller than 2 MB are allowed.</p>
+
+    <button type="submit" class="btn btn-primary">Upload Image</button>
+
+</form>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,37 @@
+﻿@page
+@model ImageLibrary.Pages.GalleryModel
+
+@{
+    ViewData["Title"] = "Image Gallery";
+}
+
+<h1>Image Gallery</h1>
+
+<p>Browse all uploaded images below.</p>
+
+@if (Model.Images.Count == 0)
+{
+    <p>No images have been uploaded yet.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@Url.Content("~/uploads/" + Uri.EscapeDataString(image.FileName))"
+                         class="card-img-top"
+                         alt="@image.Title"
+                         style="height: 220px; object-fit: cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@image.Title</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<a asp-page="/Upload" class="btn btn-primary">Upload Another Image</a>
